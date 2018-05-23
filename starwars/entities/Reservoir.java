@@ -60,10 +60,11 @@ public class Reservoir extends SWEntity {
 
         if (this.hitpoints < 0){
             this.setShortDescription("the wreckage of a water reservoir");
-            this.setLongDescription(longDescription);
+            this.setLongDescription("a damaged water reservoir, leaking slowly.");
             this.setSymbol("X");
         }else if (0 < this.hitpoints && this.hitpoints < 20){
             this.setShortDescription("damaged water reservoir");
+            this.setLongDescription("the wreckage of a water reservoir.");
             this.setSymbol("V");
         }
 	}
