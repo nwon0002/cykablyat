@@ -38,9 +38,9 @@ public class Grenade extends SWEntity {
 
         this.shortDescription = "a grenade";
         this.longDescription = "A grenade that can be thrown";
-        this.hitpoints = 100; // start with a fully charged pistol
+        this.hitpoints = 100; // start with 100
 
-        this.addAffordance(new Take(this, m)); //add the Take affordance so that the blaster can be picked up
+        this.addAffordance(new Take(this, m)); //add the Take affordance so that the grenade can be picked up
 
         //the blaster has capabilities
         this.capabilities.add(Capability.WEAPON);   // and WEAPON so that it can be used to attack
@@ -69,7 +69,6 @@ public class Grenade extends SWEntity {
      * cannot be used to <code>Chop</code> or <code>Attack</code>.
      * <p>
      *
-     * @author 	Asel
      * @param 	damage the amount of <code>hitpoints</code> to be reduced
      * @see 	{@link starwars.actions.Attack}
      */
@@ -84,7 +83,5 @@ public class Grenade extends SWEntity {
             this.capabilities.remove(Capability.WEAPON);
         }
     }
-
-
 
 }

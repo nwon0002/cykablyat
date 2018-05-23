@@ -58,10 +58,8 @@ public class Throw extends SWAffordance {
     @Override
     public void act(SWActor a) {
         if (target instanceof SWEntityInterface) {
+            // get the current location of the actor
             SWLocation location = SWWorld.getEntitymanager().whereIs(a);
-
-           // ArrayList<SWLocation> locationsInRing = new ArrayList<SWLocation>();
-            //locationsInRing.add(location);
 
             //get the contents of the current location
             List<SWEntityInterface> contents = SWWorld.getEntitymanager().contents(location);
@@ -75,11 +73,12 @@ public class Throw extends SWAffordance {
             }
 
             for (Grid.CompassBearing d : Grid.CompassBearing.values()) { // iterate through every neighbouring direction
-                // check contents in neighbouring directions in one-step locations
+                // check contents in neighbouring directions
+                // One step apart (10 points damage)
                 SWLocation oneStepLocation = (SWLocation) location.getNeighbour(d);
                 makeDamage(oneStepLocation, 10);
 
-                // Two steps apart
+                // Two steps apart (5 points damage)
                 if (oneStepLocation != null) { // if the location exists
                     SWLocation twoStepLocation = (SWLocation) oneStepLocation.getNeighbour(d);
                     makeDamage(twoStepLocation, 5);
@@ -95,17 +94,20 @@ public class Throw extends SWAffordance {
                     }
                 }
             }
+;
+            a.setItemCarried(null); // the grenade is destroyed
+
         }
     }
 
-    public void makeDamage(SWLocation location, int points){
-        if (location != null) {
+    private void makeDamage(SWLocation location, int points){
+        if (location != null) { // if the location exists
             //get the contents of the location
             List<SWEntityInterface> contents = SWWorld.getEntitymanager().contents(location);
             // Check for any entity in that location
             if (contents != null) { // e
                 for (SWEntityInterface entity : contents) {
-                    entity.takeDamage(points); // lose 10 points
+                    entity.takeDamage(points); // lose health
                 }
             }
         }
