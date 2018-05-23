@@ -10,7 +10,6 @@ import starwars.actions.Attack;
 import starwars.actions.Take;
 import starwars.entities.*;
 import starwars.entities.actors.*;
-import starwars.entities.actors.Droid;
 
 /**
  * Class representing a world in the Star Wars universe. 
