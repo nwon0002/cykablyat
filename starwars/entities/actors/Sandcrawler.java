@@ -12,8 +12,6 @@ import starwars.actions.Move;
 import starwars.entities.actors.behaviors.Patrol;
 
 public class Sandcrawler extends SWActor {
-	private static Sandcrawler sc = null;
-	private Patrol path;
 
     /**
      * Constructor for the <code>Droid</code> class. This constructor will,
@@ -26,11 +24,21 @@ public class Sandcrawler extends SWActor {
      * @param world the <code>SWWorld</code> world to which this <code>Droid</code> belongs to
      *
      */
-	public Sandcrawler(MessageRenderer m, SWWorld world, Direction [] moves) {
+	
+	private static Sandcrawler sc = null;
+	private Patrol path;
+	
+	private Sandcrawler(MessageRenderer m, SWWorld world, Direction [] moves) {
 		super(Team.NEUTRAL, 50, m, world);
 		this.setShortDescription("Jawa Sandcrawler.");
         path = new Patrol(moves);
     }
+	
+	public static Sandcrawler getSandcrawler(MessageRenderer m, SWWorld world, Direction [] moves) {
+		sc = new Sandcrawler(m, world, moves);
+//		sc.activate();
+		return sc;
+	}
 
 	@Override
 	public void act() {

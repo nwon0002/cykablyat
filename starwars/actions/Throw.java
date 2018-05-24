@@ -6,7 +6,6 @@ import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.*;
 import starwars.entities.Grenade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** NEW PART
@@ -60,9 +59,6 @@ public class Throw extends SWAffordance {
         if (target instanceof SWEntityInterface) {
             SWLocation location = SWWorld.getEntitymanager().whereIs(a);
 
-           // ArrayList<SWLocation> locationsInRing = new ArrayList<SWLocation>();
-            //locationsInRing.add(location);
-
             //get the contents of the current location
             List<SWEntityInterface> contents = SWWorld.getEntitymanager().contents(location);
             // Entities in the location where the grenade is thrown lose 20 hitpoints
@@ -75,40 +71,27 @@ public class Throw extends SWAffordance {
             }
 
             for (Grid.CompassBearing d : Grid.CompassBearing.values()) { // iterate through every neighbouring direction
+                System.out.println(d);
                 // check contents in neighbouring directions in one-step locations
                 SWLocation oneStepLocation = (SWLocation) location.getNeighbour(d);
-                makeDamage(oneStepLocation, 10);
 
-                // Two steps apart
-                if (oneStepLocation != null) { // if the location exists
-                    SWLocation twoStepLocation = (SWLocation) oneStepLocation.getNeighbour(d);
-                    makeDamage(twoStepLocation, 5);
-
-                    // Check if location is the corner
-                    int angle = d.getAngle();
-                    if(angle == 45 || angle == 135 || angle == 225 || angle == 315){
-                        // Damage the adjacent cells
-                        SWLocation location1 = (SWLocation) oneStepLocation.getNeighbour(d.turn(45));
-                        SWLocation location2 = (SWLocation) oneStepLocation.getNeighbour(d.turn(315));
-                        makeDamage(location1, 5);
-                        makeDamage(location2, 5);
+                if (oneStepLocation != null) {
+                    //get the contents of the location
+                    List<SWEntityInterface> oneStepContents = SWWorld.getEntitymanager().contents(oneStepLocation);
+                    // Check for any entity in that location
+                    //System.out.println(oneStepLocation);
+                    //System.out.println(oneStepContents);
+                    if (oneStepContents != null) { // e
+                        for (SWEntityInterface entity : oneStepContents) {
+                            entity.takeDamage(10); // lose 10 points
+                        }
                     }
-                }
-            }
-        }
-    }
 
-    public void makeDamage(SWLocation location, int points){
-        if (location != null) {
-            //get the contents of the location
-            List<SWEntityInterface> contents = SWWorld.getEntitymanager().contents(location);
-            // Check for any entity in that location
-            if (contents != null) { // e
-                for (SWEntityInterface entity : contents) {
-                    entity.takeDamage(points); // lose 10 points
                 }
+
             }
-        }
+
+            }
 
     }
 

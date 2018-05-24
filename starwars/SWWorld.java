@@ -112,7 +112,6 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(4,  5);
 		entityManager.setLocation(ben, loc);
 		
-
         /** NEW PART =====================
          * A Droid
          **/
@@ -123,7 +122,7 @@ public class SWWorld extends World {
         loc = myGrid.getLocationByCoordinates(2, 8);
         entityManager.setLocation(droid, loc);
 		// =================================
-
+        
         loc = myGrid.getLocationByCoordinates(5,9);
         // Luke
 		Player luke = new Player(Team.GOOD, 100, iface, this);
@@ -132,7 +131,23 @@ public class SWWorld extends World {
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
 		//droid.setOwner(luke);
-
+		
+		/** NEW PART =====================
+         * Jawa Sandcrawler
+         **/
+		
+		Direction [] scmoves = {CompassBearing.EAST, CompassBearing.EAST,
+                CompassBearing.SOUTH,
+                CompassBearing.WEST, CompassBearing.WEST,
+                CompassBearing.SOUTH,
+                CompassBearing.EAST, CompassBearing.EAST,
+                CompassBearing.NORTHWEST, CompassBearing.NORTHWEST};
+		
+		Sandcrawler sc = Sandcrawler.getSandcrawler(iface, this, scmoves);
+		ben.setSymbol("SC");
+		loc = myGrid.getLocationByCoordinates(2,  6);
+		entityManager.setLocation(sc, loc);
+		// =================================
 		
 		// Beggar's Canyon 
 		for (int col = 3; col < 8; col++) {
