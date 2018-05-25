@@ -1,6 +1,5 @@
 package starwars.actions;
 
-import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.*;
 
@@ -61,17 +60,6 @@ public class Leave extends SWAffordance {
             SWWorld.getEntitymanager().setLocation(theItem, location); //put the item to the locationof SWActor
 
             theItem.removeAffordance(this);
-
-            // Remove the Throw affordance
-            Affordance[] affordances = theItem.getAffordances();
-            int index = -1;
-            for (int i=0; i<affordances.length; i++){
-                if(affordances[i].getClass() == Throw.class){
-                    theItem.removeAffordance(affordances[i]);
-                }
-            }
-
-            // After the item is left someone can take it
             theItem.addAffordance(new Take(theItem, new MessageRenderer() {
                 @Override
                 public void render(String message) {
