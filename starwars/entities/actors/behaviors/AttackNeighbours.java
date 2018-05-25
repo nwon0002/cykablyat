@@ -33,7 +33,7 @@ public class AttackNeighbours {
 				for (Affordance a : e.getAffordances()) {
 					if (a instanceof Attack) {
 
-						attackables.add(new AttackInformation(e, a));
+							attackables.add(new AttackInformation(e, a));
 						break;
 					}
 				}

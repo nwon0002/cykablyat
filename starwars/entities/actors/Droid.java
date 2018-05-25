@@ -55,7 +55,7 @@ public class Droid extends SWActor{
     }
 
     /**
-     * Assigns this <code>Droid</code>'s to <code>SWActor</code>
+     * Assigns this <code>Droid</code> to <code>SWActor</code>
      *
      * This method will set owner <code>SWActor</code> to <code>Droid</code>
      *
@@ -103,7 +103,7 @@ public class Droid extends SWActor{
                             if (entity.getSymbol() == this.owner.getSymbol()) {
                                 say("A Droid is in the same location as its owner");
                                 ownerFound = true;
-                                if (location.getSymbol() == 'b'){ // check if in the Badlands
+                                if (location.getSymbol() == 'b') { // check if in the Badlands
                                     this.takeDamage(100); //lose health if in Badlands
                                 }
                             }
@@ -112,12 +112,14 @@ public class Droid extends SWActor{
                 }
 
                 Direction heading = null; // if owner is not found,
-                if(!ownerFound){          // get the Direction to move
+                if (!ownerFound) {          // get the Direction to move
                     boolean found = false;
-
-                    for (Grid.CompassBearing d : Grid.CompassBearing.values()) { // iterate through every neighbouring direction
-                        SWLocation checklocation = (SWLocation) location.getNeighbour(d); // check locations of neighbouring directions
-                        if (checklocation != null &&  checklocation == SWWorld.getEntitymanager().whereIs(this.owner)){ // if owner is in that direction
+                    // iterate through every neighbouring direction
+                    for (Grid.CompassBearing d : Grid.CompassBearing.values()) {
+                        // get locations of neighbouring directions
+                        SWLocation checklocation = (SWLocation) location.getNeighbour(d);
+                        // check if owner is in that direction
+                        if (checklocation != null && checklocation == SWWorld.getEntitymanager().whereIs(this.owner)) {
                             heading = d;    // move to that direction
                             say(getShortDescription() + " has found the owner in " + heading);
                             say(getShortDescription() + " is heading " + heading + " next.");
@@ -127,7 +129,7 @@ public class Droid extends SWActor{
                         }
                     }
 
-                    if (!found && Math.random() > 0.55){  // owner is not found in the neighbouring location
+                    if (!found && Math.random() > 0.55) {  // owner is not found in the neighbouring location
                         ArrayList<Direction> possibledirections = new ArrayList<Direction>();
 
                         // build a list of available directions
@@ -137,7 +139,7 @@ public class Droid extends SWActor{
                             }
                         }
                         // randomly choose the Direction to move
-                        heading = possibledirections.get((int) (Math.floor(Math.random() * possibledirections.size())));
+                            heading = possibledirections.get((int) (Math.floor(Math.random() * possibledirections.size())));
                         say(getShortDescription() + " is heading " + heading + " next.");
                         Move myMove = new Move(heading, messageRenderer, world);
 
@@ -147,14 +149,15 @@ public class Droid extends SWActor{
                 // ========================
                 // Check if new loction is in Badlands
                 SWLocation newlocation = (SWLocation) location.getNeighbour(heading);
-                if ((newlocation != null && newlocation.getSymbol() == 'b' )) {
+                if ((newlocation != null && newlocation.getSymbol() == 'b')) {
                     this.takeDamage(100); //lose health if in Badlands
                 }
 
-            }else{
-                //System.out.println("No owner");// no owner - no movement
+            } else {
+                //System.out.println("No owner");
+                // no owner - no movement
             }
-        }else { // run out of health; becomes immobile
+        } else  { // run out of health; becomes immobile
             say("A Droid is immobile, because it has run out of health ");
         }
     }

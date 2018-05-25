@@ -30,8 +30,9 @@ public class Application {
 		
 		// set up the world
 		world.initializeWorld(uiController);
-	
-		// kick off the scheduler
+
+
+        // kick off the scheduler
 		while(true) {
 			uiController.render();
 			theScheduler.tick();

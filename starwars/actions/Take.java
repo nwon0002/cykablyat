@@ -66,14 +66,17 @@ public class Take extends SWAffordance {
 			//remove the target from the entity manager since it's now held by the SWActor
             SWWorld.getEntitymanager().remove(target);
 
-            //remove the take affordance
+            // the item is taken
+            // remove Take affordance
             target.removeAffordance(this);
+            // it can be dropped
+            // add Leave Affordance
             target.addAffordance(new Leave(a.getItemCarried(), new MessageRenderer() {
                 @Override
                 public void render(String message) {
                     return;
                 }
-            })); // Add Leave Affordance
+            }));
 
             //If lightsaber is taken by force user
             if (theItem.getSymbol().equals("†")) {
@@ -84,12 +87,13 @@ public class Take extends SWAffordance {
 
             //If a grenade is taken
             if (theItem.getSymbol().equals("g")) {
+                // grenade can be thrown
                 theItem.addAffordance(new Throw(a.getItemCarried(), new MessageRenderer() {
                     @Override
                     public void render(String message) {
                         return;
                     }
-                })); // grenade can be thrown
+                }));
             }
 
 		}

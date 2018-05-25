@@ -116,13 +116,19 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		return team;
 	}
 
-	/**
+    public SWWorld getWorld() {
+        return world;
+    }
+
+    /**
 	 * Returns the hit points of this <code>SWActor</code>.
 	 * 
 	 * @return 	the hit points of this <code>SWActor</code> 
 	 * @see 	#hitpoints
 	 * @see 	#isDead()
 	 */
+
+
 	@Override
 	public int getHitpoints() {
 		return hitpoints;
@@ -315,7 +321,5 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	}
 
 
-	
-	
 	
 }

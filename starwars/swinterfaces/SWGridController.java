@@ -2,13 +2,11 @@ package starwars.swinterfaces;
 
 import java.util.ArrayList;
 
+import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.gridworld.GridController;
 import edu.monash.fit2099.gridworld.GridRenderer;
 import edu.monash.fit2099.simulator.matter.ActionInterface;
-import starwars.SWActionInterface;
-import starwars.SWActor;
-import starwars.SWGrid;
-import starwars.SWWorld;
+import starwars.*;
 
 /**
  * Concrete implementation of the <code>GridController</code>.
@@ -28,7 +26,7 @@ public class SWGridController implements GridController {
 	private static GridRenderer ui; 
 	
 	/**SWgrid of the world*/
-	private SWGrid grid;
+	private static SWGrid grid;
 	
 	/**
 	 * Constructor of this <code>SWGridController</code>
@@ -48,6 +46,12 @@ public class SWGridController implements GridController {
 		//this.ui = new SWGridBasicGUI(this.grid); //Use a Basic GUI to interact
 		//this.ui = new SWGridGUI(this.grid); //Use a GUI with better graphics to interact
 	}
+
+	public static void changeGrid(SWGrid grid){
+	    SWGridController.grid = grid;
+
+       // SWGridController.uithis.grid;
+    }
 
 	@Override
 	public void render() {
@@ -77,8 +81,9 @@ public class SWGridController implements GridController {
 
 		//Get all the actions the SWActor a can perform
 		for (SWActionInterface ac : SWWorld.getEntitymanager().getActionsFor(a)) {
-			if (ac.canDo(a))
-				cmds.add(ac);
+		    if (ac.canDo(a))
+                    cmds.add(ac);
+
 		}
 		
 		//Get the UI to display the commands to the user and get a selection
@@ -86,7 +91,10 @@ public class SWGridController implements GridController {
 		assert (cmds.size()>0): "No commands for Star Wars Actor";
 		
 		ActionInterface selectedAction = ui.getSelection(cmds);
-		
+
+		String s = selectedAction.getDescription();
+        SWLocation loc = SWWorld.getEntitymanager().whereIs(a);
+        //ui.getSelection()
 		//cast and return selection
 		return (SWActionInterface)selectedAction;
 	}

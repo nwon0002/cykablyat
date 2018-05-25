@@ -7,12 +7,10 @@ import starwars.actions.Leave;
 import starwars.actions.Take;
 import starwars.actions.Throw;
 
-/**
+/** NEW PART
  * An entity that has the <code>WEAPON</code> attribute and so can
  * be used to <code>Attack</code> others, etc.
  *
- * @see 	{@link starwars.entities.Reservoir}
- * @see 	{@link starwars.actions.Chop}
  * @see 	{@link starwars.actions.Attack}
  */
 public class Grenade extends SWEntity {
@@ -40,10 +38,11 @@ public class Grenade extends SWEntity {
         this.longDescription = "A grenade that can be thrown";
         this.hitpoints = 100; // start with 100
 
-        this.addAffordance(new Take(this, m)); //add the Take affordance so that the grenade can be picked up
+        //add the Take affordance so that the grenade can be picked up
+        this.addAffordance(new Take(this, m));
 
-        //the blaster has capabilities
-        this.capabilities.add(Capability.WEAPON);   // and WEAPON so that it can be used to attack
+        // add WEAPON capability so that it can be used to attack
+        this.capabilities.add(Capability.WEAPON);
     }
 
     /**
@@ -58,15 +57,15 @@ public class Grenade extends SWEntity {
 
     /**
      * Method insists damage on this <code>Grenade</code> by reducing a certain
-     * amount of <code>damage</code> from this <code>Swords</code> <code>hitpoints</code>
+     * amount of <code>damage</code> from this <code>SWentity</code> <code>hitpoints</code>
      * <p>
      * This method will also change this <code>Grenade</code>s <code>longDescription</code> to
-     * "A broken sword that was once gleaming"  and this <code>Grenade</code>s <code>shortDescription</code> to
-     * "a broken sword" if the <code>hitpoints</code> after taking the damage is zero or less.
+     * "A grenade is damaged, it cannot be thrown anymore"  and this <code>Grenade</code>s <code>shortDescription</code> to
+     * "a damaged grenade" if the <code>hitpoints</code> after taking the damage is zero or less.
      * <p>
      * If the <code>hitpoints</code> after taking the damage is zero or less, this method will remove the
-     * <code>CHOPPER</code> and <code>WEAPON</code> capabilities from this <code>Grenade</code> since a broken sword
-     * cannot be used to <code>Chop</code> or <code>Attack</code>.
+     * <code>WEAPON</code> capabilities from this <code>Grenade</code> since a broken grenade
+     * cannot be used to <code>Attack</code>.
      * <p>
      *
      * @param 	damage the amount of <code>hitpoints</code> to be reduced

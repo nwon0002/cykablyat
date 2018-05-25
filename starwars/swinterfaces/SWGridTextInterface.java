@@ -49,6 +49,10 @@ public class SWGridTextInterface implements GridRenderer {
 		//set the show banner to true so that the banner would be displayed on the first map render
 		showBanner = true;
 	}
+
+    public static void changeGrid(SWGrid grid) {
+        SWGridTextInterface.grid = grid;
+    }
 	
 	
 	/**
@@ -157,7 +161,9 @@ public class SWGridTextInterface implements GridRenderer {
 				SWLocation loc = (SWLocation) grid.getLocationByCoordinates(col, row);
 				
 				//construct the string of a location to be displayed on the text interface
-				buffer = buffer + "|"+ getLocationString(loc)+"| ";
+				if(loc != null){
+                    buffer = buffer + "|"+ getLocationString(loc)+"| ";
+                }
 			}
 			buffer += "\n"; //new row
 		}

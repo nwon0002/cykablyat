@@ -1,5 +1,6 @@
 package starwars.actions;
 
+import edu.monash.fit2099.simulator.matter.Affordance;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.*;
 
@@ -56,10 +57,22 @@ public class Leave extends SWAffordance {
                 theItem.removeCapability(Capability.WEAPON); // Lightsaber is no longer a WEAPON
             }
 
-            SWLocation location = SWWorld.getEntitymanager().whereIs(a); // get the current location of the actor
-            SWWorld.getEntitymanager().setLocation(theItem, location); //put the item to the locationof SWActor
+            // get the current location of the actor
+            SWLocation location = SWWorld.getEntitymanager().whereIs(a);
+            // put the item to the locationof SWActor
+            SWWorld.getEntitymanager().setLocation(theItem, location);
 
+            // Remove the Throw affordance
+            Affordance[] affordances = theItem.getAffordances();
+            for (int i=0; i<affordances.length; i++){
+                if(affordances[i] instanceof Throw){
+                    theItem.removeAffordance(affordances[i]);
+                }
+            }
+
+            // the item is dropped, remove Leave affordance
             theItem.removeAffordance(this);
+            // someone can take it, add Take affordance
             theItem.addAffordance(new Take(theItem, new MessageRenderer() {
                 @Override
                 public void render(String message) {

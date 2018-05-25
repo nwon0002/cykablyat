@@ -8,5 +8,6 @@ public enum Team {
 	GOOD,
 	EVIL,
 	TUSKEN,
+	JAWA,
 	NEUTRAL;
 }

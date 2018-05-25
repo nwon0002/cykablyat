@@ -37,6 +37,7 @@ import starwars.SWWorld;
 public class TextInterface implements MessageRenderer, MapRenderer, SimulationController {
 	
 	/** Hobbit grid of the world*/
+	/** Hobbit grid of the world*/
 	private SWGrid grid;
 	
 	/** The number of items to be displayed per location including the location label and colon ':'*/
